@@ -65,7 +65,10 @@ long __stdcall menu::wndproc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam 
 void menu::initialize( ) {
 	create( );
 	 
+	/* checkbox test */
 	static bool test = false;
+	static bool test2 = false;
+
 	static int test_slider = 0;
 	static int test_combo = 0;
 
@@ -78,7 +81,11 @@ void menu::initialize( ) {
 	/* tabs */
 	switch ( ui::tab.tab_selected ) {
 		case 0: {
-			
+			ui::begin_child.draw( 10, 70, ui::form.width / 2 - 15, ui::form.height - 80, "name", ui::child_flags::child_animation, 1 );
+			ui::check.draw( " test", &test, ui::checkbox_flags::check_featured, 1 );
+			ui::check.draw( " 22", &test, ui::checkbox_flags::check_featured, 2 );
+
+			ui::begin_child.draw( 10 + ui::form.width / 2 - 15 + 10, 70, ui::form.width / 2 - 15, ui::form.height - 80, "test", ui::child_flags::child_animation, 2 );
 		} break;
 		case 1: {
 

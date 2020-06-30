@@ -13,25 +13,66 @@ namespace ui {
 	}
 
 	void child::end( int x, int y, int w, int h ) {
+		form.offset_y = form.position.y + y + 12;
 		form.controls_x = form.position.x + x;
 		form.groupbox_bottom = ( form.position.y + ( y + h ) );
 		form.groupbox_width = ( form.position.x + ( x + w ) );
 	}
 
 	/* child draw */
-	void child::draw( int x, int y, int w, int h, std::string name ) {
-		/* render group */
-		render.filled_rect( form.position.x + x, form.position.y + y, w, h, color( 255, 15, 15 ) );
-		render.rect( form.position.x + x, form.position.y + y, w, h, color( 35, 35, 35 ) );
+	void child::draw( int x, int y, int w, int h, std::string name, int flags, int anim ) {
+		render.filled_rect( form.position.x + x, form.position.y + y, w, h, color( 25, 25, 25 ) );
 
-		/* rect */
-		render.rect( form.position.x + x, form.position.y + y + h - 19, w, 22, color( 35, 35, 35 ) );
+		/* setup flags */
+		/* child outline flag */
+		if ( flags == child_outline ) {
+			render.rect( form.position.x + x, form.position.y + y, w, h, color( 120, 120, 120, 120 ) );
+		}
+		if ( flags == child_animation ) {
+			/* start animation */
+			static bool hovered = false;
+			int group_animation1[ 9999 ];
+			int group_animation2[ 9999 ];
 
-		/* flame effect : low bugget*/
-		render.gradient_rect( form.position.x + x, form.position.y + y + h, w, 7, color( 255, 0, 0, 230 ), color( 110, 0, 0, 30 ), false );
+			/* check if we are hovering */
+			if ( render.mouse_in_region( form.position.x + x, form.position.y + y, w, h ) ) {
+				hovered = true;
+			}
+			else {
+				hovered = false;
+			}
 
-		/* render name */
-		render.text( form.position.x + x + w / 2 - 12, form.position.y + y + h - 18, name, menu::menu_title_font, color( 255, 255, 255 ) );
+			/* setup animation */
+			if ( hovered ) {
+				group_animation1[ anim ] = 0;
+				if ( anim > 0 ) {
+					if ( group_animation2[ anim ] < 120 ) {
+						group_animation2[ anim ] += 2;
+					}
+					else {
+						group_animation2[ anim ] = 120;
+					}
+				}
+			}
+			else {
+				group_animation2[ anim ] = 0;
+				if ( anim > 0 ) {
+					if ( group_animation1[ anim ] < 120 ) {
+						group_animation1[ anim ] += 2;
+					}
+					else {
+						group_animation1[ anim ] = 120;
+					}
+				}
+			}
+
+			render.rect( form.position.x + x, form.position.y + y, w, h, color( 120, 120, 120, group_animation2[ anim ] ) );
+		}
+
+		/* child flag name */
+		if ( flags == child_title_bar ) {
+			render.text( form.position.x + x + 3, form.position.y + y, name.c_str( ), menu::menu_font, color( 255, 255, 255 ) );
+		}
 
 		/* think */
 		this->think( );
