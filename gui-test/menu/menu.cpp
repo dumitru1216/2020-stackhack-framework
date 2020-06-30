@@ -78,12 +78,28 @@ void menu::initialize( ) {
 	ui::form.draw( "menu", 1 );
 	/* draw tabs */ ui::tab.tab_button( );
 
+	/*
+		*** info ***
+		the value at final of the controls is for animation
+		put + 1 value for any controls who are next like
+		example
+		checkbox(name, x, 1) //the 1 is the first controlling of animation
+		checkbox(name, y, 2) //2 is the next value for controls of animation
+
+		*** info ***
+		
+	*/
+
+
 	/* tabs */
 	switch ( ui::tab.tab_selected ) {
 		case 0: {
 			ui::begin_child.draw( 10, 70, ui::form.width / 2 - 15, ui::form.height - 80, "name", ui::child_flags::child_animation, 1 );
 			ui::check.draw( " test", &test, ui::checkbox_flags::check_featured, 1 );
 			ui::check.draw( " 22", &test, ui::checkbox_flags::check_featured, 2 );
+			ui::slider.draw( "name", &test_slider, 0, 100, ui::slider_flags::slider_featured , 1 /* here im doing slider type look slider.cpp */, ui::slider_gradient_flags::true_flag );
+			ui::slider.draw( "nam2e", &test_slider, 0, 100, ui::slider_flags::slider_featured, 1 /* here im doing slider type look slider.cpp */, ui::slider_gradient_flags::true_flag );
+			//ui::combo.draw( "suka", &test_combo, xd_test, 2, ui::combo_flags::ouline );
 
 			ui::begin_child.draw( 10 + ui::form.width / 2 - 15 + 10, 70, ui::form.width / 2 - 15, ui::form.height - 80, "test", ui::child_flags::child_animation, 2 );
 		} break;

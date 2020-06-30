@@ -2,10 +2,21 @@
 #include "../../menu.hpp"
 
 namespace ui {
+	enum slider_flags {
+		slider_preview_next_value,
+		slider_value,
+		slider_featured
+	};
+
+	enum slider_gradient_flags {
+		true_flag,
+		false_flag
+	};
+
 	class slider_bar {
 	public:
 		/* slider int */
-		void draw( std::string name, int* item, int min, int max );
+		void draw( std::string name, int* item, int min, int max, int flags, int type, int flags2 );
 		void think( );
 
 		/* slider float */

@@ -2,10 +2,14 @@
 #include "../../menu.hpp"
 
 namespace ui {
+	enum combo_flags {
+		ouline
+	};
+
 	class combobox {
 	public:
 		void think( );
-		void draw( int size, std::string name, std::string* itemname, int* item );
+		void draw( std::string name, int* item, std::string* item_name, int size, int flags );
 
 		/* controls */
 		void begin( );
